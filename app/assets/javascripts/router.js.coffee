@@ -2,4 +2,4 @@
 
 FrontendEmber.Router.map ()->
   @resource 'todos', {path: '/' }, ()->
-
+    @route('active')
