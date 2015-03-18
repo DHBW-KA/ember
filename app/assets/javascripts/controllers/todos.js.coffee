@@ -11,12 +11,24 @@ FrontendEmber.TodosController = Ember.ArrayController.extend
       this.set('newTitle', '');
 
       todo.save();
+    clearCompleted: ()->
+      completed = @filterBy 'isCompleted', true
+      completed.invoke('deleteRecord');
+      completed.invoke('save');
 
   remaining: (()->
     @filterBy('isCompleted', false).get 'length'
-  ).property('@each.isCompleted')
+  ).property '@each.isCompleted'
 
   inflection: (()->
     remaining = @get 'remaining'
     if remaining == 1 then 'item' else 'items'
-  ).property('remaining')
+  ).property 'remaining'
+
+  hasCompleted: (()->
+    @get('completed') > 0
+  ).property 'completed'
+
+  completed: (()->
+    @filterBy('isCompleted', true).get 'length'
+  ).property '@each.isCompleted'
