@@ -34,5 +34,10 @@ FrontendEmber.TodosController = Ember.ArrayController.extend
   ).property '@each.isCompleted'
 
   allAreDone: ((key, value)->
-    !!@get('length') && @isEvery('isCompleted');
+    if value == undefined
+      !!@get('length') && @isEvery('isCompleted');
+    else
+      @setEach('isCompleted', value);
+      @invoke('save');
+      value;
   ).property '@each.isCompleted'
