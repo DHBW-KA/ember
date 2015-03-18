@@ -32,3 +32,7 @@ FrontendEmber.TodosController = Ember.ArrayController.extend
   completed: (()->
     @filterBy('isCompleted', true).get 'length'
   ).property '@each.isCompleted'
+
+  allAreDone: ((key, value)->
+    !!@get('length') && @isEvery('isCompleted');
+  ).property '@each.isCompleted'
