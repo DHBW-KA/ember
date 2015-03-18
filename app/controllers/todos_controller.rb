@@ -8,6 +8,12 @@ class TodosController < ApplicationController
     render json: todo, status: :created
   end
 
+  def destroy
+    todo = Todo.find(params[:id])
+    todo.destroy!
+    head :no_content
+  end
+
   private
     def resource_params
       params.require(:todo).permit(:id, :title, :is_completed)
